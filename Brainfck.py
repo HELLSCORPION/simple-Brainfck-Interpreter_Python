@@ -10,7 +10,7 @@ class Memory:
         self.__mem.append(0)
 
     def go_right(self):
-        if self.__mem.__len__() <= self.__ptr+1:
+        if len(self.__mem) <= self.__ptr+1:
             self.__mem.append(0)
         self.__ptr+=1
 
@@ -50,7 +50,7 @@ class Memory:
 
 # initializing code from arguments
 
-code = ""
+code = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>."
 args = argv.copy()
 args[0] = ""
 for arg in args:
@@ -69,18 +69,18 @@ print("-------------------------------------------\n\n")
 loopBeginCount = 0
 loopEndCount = 0
 
-for i in range(0,code.__len__()):
-    if code[i] == "[":
-        loopBeginCount+=1
-    elif code[i] == "]":
-        loopEndCount+=1
+for c in code:
+    if c == "[":
+        loopBeginCount += 1
+    elif c == "]":
+        loopEndCount += 1
 
 # checking consistency
 
 if loopBeginCount != loopEndCount:
     exit("loops inconsistent")
 
-loopCount = loopBeginCount.__int__()
+loopCount = loopBeginCount
 
 del loopBeginCount
 del loopEndCount
@@ -91,20 +91,18 @@ loopBegin = []
 loopEnd   = []
 loopDepth = 0
 
-
-for i in range(0, code.__len__()):
-    if code[i] == "[":
+for i, c in enumerate(code):
+    if c == "[":
         loopDepth+=1
-        for j in range(i+1, code.__len__()):
-            if code[j] == "]":
+        for j, d in enumerate(code[i+1:], i+1):
+            if d == "]":
                 loopDepth-=1
                 if loopDepth == 0:
                     loopBegin.append(i)
                     loopEnd.append(j)
                     break
-            elif code[j] == "[":
+            elif d == "[":
                 loopDepth+=1
-
 
 
 # initializing instruction pointer and wokring-memory
@@ -114,7 +112,7 @@ mem = Memory()
 
 # main loop
 
-while(iptr < code.__len__()):
+while(iptr < len(code)):
     if code[iptr] == '+':
         mem.increase(iptr)
     elif code[iptr] == '-':
