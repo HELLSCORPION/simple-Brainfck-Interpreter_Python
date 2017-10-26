@@ -50,7 +50,7 @@ class Memory:
 
 # initializing code from arguments
 
-code = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>."
+code = ""
 args = argv.copy()
 args[0] = ""
 for arg in args:
